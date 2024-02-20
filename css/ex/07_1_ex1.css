@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
+
+* {
+    /* 글꼴 지정 */
+    font-family: "Nanum Brush Script", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+h1 {
+    /* 글자 크기 조정*/
+    /*키워드로 조정*/
+    /* font-size: medium; */
+
+    /* px로 조절 */
+    /* font-size: 50px; */
+
+    /* em으로 조절 (부모요소 기준 배율) */
+    /*font-size: 2em; */
+
+    /* rem으로 조절(최상위 요소 기준 배율) */
+    font-size: 2rem;
+}
+
+p {
+    /*폰트 굵기*/
+    /*font-weight: lighter;*/
+
+    /*숫자를 통해 조절 (100~900, 100단위) */
+    font-weight: 400;
+}
+
