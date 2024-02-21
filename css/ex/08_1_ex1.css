@@ -1,0 +1,113 @@
+h1 {
+    margin: 10px;
+    /*너비 조절*/
+    width: 100px;
+    /*높이 조절*/
+    height: 150px;
+}
+
+/*.size-p {
+    background-color: chocolate;
+    width: 50vw;
+    height: 30vh;
+}
+
+.size-div {
+    width: 200px;
+    height: 200;
+}
+
+.size-div p {
+    background-color: chocolate;
+    width: 50vw;
+    height: 50vh;
+}*/
+
+.container {
+    width: 300px;
+    border: 3px solid #000;
+}
+
+/* bordoer는 컨텐츠박스를 외부박스와의 간격을 조정한다*/
+
+div {
+    border: 3px solid red;
+}
+
+.div-1 {
+    /* 상하좌우 5px*/
+    margin: 5px;
+}
+
+.div-2 {
+    /* 상하 5px, 좌우 10px */
+    margin: 5px 10px;
+}
+
+.div-3 {
+    /* 상 5px, 좌우 10px, 하 15px*/
+    margin: 5px 10px 15px;
+}
+
+.div-4 {
+    /* 상 5px, 우 10px, 하 15px, 좌 20px */
+    margin: 5px 10px 15px 20px;
+}
+
+.div-5 {
+    width: 100px;
+    margin-left: 20px;
+}
+
+/* 블럭요소들이 수직으로 배치 될 때 마진이 겹칠 경우 더 큰 쪽의 마진만 남는다
+    ex) 위 5px 아래가 15px 일 경우 위와 아래 사이의 마진은 15px
+    
+    좌우의 마진이 겹칠 경우 중첩되지 않는다
+    ex) 좌 5px 우 15px일 경우 왼쪽과 오른쪽 사이의 마진은 20px이다*/
+
+
+/* padding은 내부 컨텐츠와 박스의 간격을 조정한다*/
+.padding-div-1 {
+    /* 상하좌우 5px*/
+    padding: 5px;
+}
+
+.padding-div-2 {
+    /* 상하 5px, 좌우 10px */
+    padding: 5px 10px;
+}
+
+.padding-div-3 {
+     /* 상 5px, 좌우 10px, 하 15px*/
+    padding: 5px 10px 15px;
+}
+
+.padding-div-4 {
+     /* 상 5px, 우 10px, 하 15px, 좌 20px */
+    padding: 5px 10px 15px 20px;
+}
+
+.div-shadow {
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    /* 수평거리, 수직거리, 흐림정도, 번짐정도, 색상, 그림자방향(생략가능) */
+    box-shadow: 20px 20px 10px 10px black inset;
+}
+
+.div-content {
+    /* 콘텐츠 영역에만으로 요소의 크기(width, height)를 결정 */
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.div-border {
+    /* 테두리 + 패딩 +콘텐츠 영역으로 요소의 크기(width, height)를 결정 */
+    box-sizing: border-box;
+    width: 200px;
+    height: 200px;
+    margin: 20px;
+    padding: 20px;
+}
