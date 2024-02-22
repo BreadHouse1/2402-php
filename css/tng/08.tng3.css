@@ -1,0 +1,90 @@
+/*.container {
+    border: 1px none black;
+    width: 1000px;
+    height: 700px;
+    margin: 10px;
+    position: relative;
+}
+
+.dog1 {
+    border: 1px dashed black;
+    width: 450px;
+    height: 300px;
+    position: absolute;
+    margin: 20px;
+    padding: 15px;
+}
+
+.dog2 {
+    border: 1px dashed black;
+    width: 450px;
+    height: 300px;
+    position: absolute;
+    margin-left: 515px;
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.dog3 {
+    border: 1px dashed black;
+    width: 450px;
+    height: 300px;
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 365px;
+    padding: 15px;
+}
+
+.dog4 {
+    border: 1px dashed black;
+    width: 450px;
+    height: 300px;
+    position: absolute;
+    margin-left: 515px;
+    margin-top: 365px;
+    padding: 15px;
+}
+
+.box {
+    border: 1px solid black;
+    width: 1000px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding-top: 25px;
+    margin-left: 15px;
+}
+
+h2 {
+    font-size: 1.8rem;
+} */
+
+.box {
+    width: 400px;
+    display: grid;
+    grid-template-columns: 10px 400px 1px 400px;
+    grid-template-rows: 200px 200px;
+    gap: 10px;
+}
+
+.box1 {
+    width: 400px;
+    height: 200px;
+    font-size: 40px;
+    border: 1px dashed #000;
+    padding-left: 10px;
+}
+
+.box2 {
+    border: 1px solid #000;
+    width: 840px;
+    height: 30px;
+    margin-left: 10px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    padding-top: 10px;
+}
+

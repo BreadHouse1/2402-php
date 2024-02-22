@@ -1,0 +1,21 @@
+div, span {
+    border: 3px solid #000;
+    margin: 10px;
+}
+
+.none {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+}
+
+.inline-block {
+    /* 인라인 요소는 width나 height가 적용이 안되지만 block요소를 주면 가능하다 */
+    display: inline-block;
+}

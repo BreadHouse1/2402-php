@@ -1,0 +1,7 @@
+div {
+    background-image: url(../img/docker.png);
+    height: 300vh;
+    background-attachment: fixed;
+    background-position: top 10px right 10px;
+    background-repeat: no-repeat;
+}
