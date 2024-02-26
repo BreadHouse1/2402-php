@@ -1,0 +1,57 @@
+fieldset {
+    width: 500px;
+    height: 375px;
+    background-image: url(../img/IwantYou.jpg);
+    background-size: cover;
+}
+
+legend {
+    font-size: 2rem;
+    font-weight: 900;
+    color: magenta;
+}
+
+label {
+    font-weight: 900;
+}
+
+input {
+    background-color: transparent;
+}
+
+.require::before {
+    content: '*';
+    color: red
+}
+
+textarea {
+    vertical-align: top;
+    background-color: transparent;
+}
+
+textarea:focus {
+    border: 3px solid red;
+    outline: none;
+}
+
+input:focus {
+    border: 3px solid red;
+    outline: none;
+}
+
+input:checked + label {
+    color: red;
+}
+
+span {
+    background-color: #000;
+    color: #ffffff;
+    display: none;
+    float: right;
+    margin-right: 135px;
+    font-size: 20px;
+}
+
+button:hover + span {
+    display: block;
+}

@@ -1,0 +1,23 @@
+div {
+    background-image: url(../img/다운로드.jpg);
+    width: 500px;
+    height: 500px;
+    animation: test 2s forwards;
+}
+
+/* @keyframes test {
+    from {
+        transform: translate(0)
+    }
+    to {
+        transform: translateX(200vw)
+    }
+}*/
+@keyframes test {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(2);
+    }
+}
