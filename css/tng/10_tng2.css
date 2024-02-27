@@ -25,8 +25,8 @@ input {
 }
 
 textarea {
-    vertical-align: top;
     background-color: transparent;
+    vertical-align: top;
 }
 
 textarea:focus {
