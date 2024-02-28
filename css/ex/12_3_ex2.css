@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: blueviolet;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 50px 1fr 1fr;
+    height: 100vh;
+}
+
+.item {
+    background-color: aqua;
+}
+
+.item1 {
+    grid-row: 1/4;
+    background-color: rgb(255, 73, 73);
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.title {
+    background-color: rgb(255, 95, 95);
+    color: white;
+    font-weight: 900;
+    text-indent: 1rem;
+    padding: 0.2rem 0;
+    margin-top: 3rem;
+}
+
+.nav-list{
+    text-indent: 1rem;
+    padding: 0.2rem 0;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+.nav-list:hover {
+    background-color: black;
+    transition: 2s;
+}
+
+input {
+    width: 30rem;
+    height: 2rem;
+    margin: 2rem;
+    margin-top: 0.5rem;
+}
+
+button {
+    background-color: blueviolet;
+    color: white;
+    border: none;
+    margin: 0.5rem;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 900;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}

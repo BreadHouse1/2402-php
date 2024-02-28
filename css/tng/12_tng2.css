@@ -1,0 +1,12 @@
+.container {
+    background-color: blueviolet;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 200px);
+    padding: 10px;
+    gap: 10px;
+}
+
+.item {
+    background-color: aqua;
+    height: 200px;
+}
