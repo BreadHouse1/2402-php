@@ -215,3 +215,109 @@ FROM
 	
 WHERE emp_no = 10001
 ;
+
+-- GROUP BY 절, HAVING 절: 그룹으로 묶어서 조회
+-- GROUP BY [그룹으로 묶을 컬럼] HAVING [ 그룹을 묶을때의 조건]
+SELECT 
+	gender,
+	COUNT(gender)
+	
+FROM 
+	employees
+	
+GROUP BY gender
+;
+
+-- 현재 재직중인 직원의 직책별 사원 수 조회
+SELECT
+	title,
+	COUNT(title)
+
+FROM 
+	titles
+	
+WHERE 
+	to_date >= 20240305
+	
+GROUP BY 
+	title HAVING title
+	LIKE ('%engineer%')
+;
+
+
+-- 각 사원의 최고 연봉 중 80000 이상을 조회
+SELECT
+	emp_no,
+	max(salary)
+
+FROM 
+	salaries
+	
+GROUP BY 
+	emp_no HAVING max(salary) >=80000
+;
+
+-- AS : 컬럼에 별칭 부여 as 생략가능
+SELECT
+	emp_no,
+	MAX(salary) AS max_sal
+
+FROM 
+	salaries AS sal
+	
+GROUP BY 
+	emp_no HAVING MAX(salary) >=80000
+;
+
+-- LIMIT, OFFSET : 출력하는 데이터의 개수 제한
+SELECT
+	*
+	
+FROM 
+	employees
+	
+LIMIT 
+	3 OFFSET 2
+	-- OFFSET 생략시 LIMIT OFFSET, LIMIT 로 표기가능
+	-- ex) LIMIT 5, 10
+;
+
+-- 가장 높은 연봉을 받는 사원 번호 조회
+SELECT
+	emp_no,
+	MAX(salary) AS max_sal
+
+FROM 
+	salaries
+	
+GROUP BY 
+	emp_no
+	
+ORDER BY 
+	max_sal desc
+	
+LIMIT 1
+;
+
+-- 재직중인 사원 중 급여 상위 5위까지 조회
+SELECT
+	emp_no,
+	salary
+	
+FROM 
+	salaries
+	
+WHERE 
+	to_date >=20240305
+
+ORDER BY 
+	salary DESC
+
+LIMIT 5
+;
+
+SELECT emp_no, MAX(salary) max_sal
+
+FROM salaries
+
+;
