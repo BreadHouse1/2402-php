@@ -102,3 +102,8 @@ FROM employees emp1
 	JOIN employees emp2
 		ON emp1.emp_no = emp2.sup_no
 ;
+
+ALTER TABLE employees ADD COLUMN sup_no INT;
+
+UPDATE employees SET sup_no = 10004 WHERE emp_no IN (10001, 10005);
+UPDATE employees SET sup_no = 10008 WHERE emp_no IN (10004, 10002, 10006);
