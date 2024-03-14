@@ -11,6 +11,11 @@
 //  echo : 현업에서 가장 많이 사용 (속도가 가장 빠름)
 echo "안녕, PHP";
 
+$num = 30;
+$str_print = "당신의 점수는 %u점 입니다. <%s>";
+// sprintf(변수값, %값, %값 (왼쪽부터 실행))
+echo sprintf($str_print, $num, "F");
+
 // print : 단순 출력, 현업에서는 잘 사용안함
 print("프린트로 안녕");
 
