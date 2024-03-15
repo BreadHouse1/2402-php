@@ -23,6 +23,11 @@ for($i = 1; $i < 6; $i++) {
 
 echo "\n";
 
+for($h = 1; $h < 6; $h++) {
+    echo "*****\n";
+}
+
+echo "\n";
 // 아래처럼 별을 찍어주세요.
 // 예시)
 // *
@@ -47,6 +52,15 @@ for($i = 1; $i < 6; $i++) {
 
 echo "\n";
 
+for($e = 0; $e < 5; $e++) {
+    for($f = 0; $f <= $e; $f++) {
+        echo "*";
+    }
+    echo "\n";
+}
+
+echo "\n";
+
 // 아래처럼 별을 찍어주세요.
 // 예시)
 //     *
@@ -63,11 +77,24 @@ for($num_3 = 0; $num_3 < $loop_cnt; $num_3++) {
 
 echo "\n";
 
-for($i = 5,$s = 2; $i > 0; $i--, $s++) {
-    for($z = 1; $z < $i; $z++) {
+for($i = 5,$s = 1; $i > 0; $i--, $s++) {
+    for($z = 0; $z < $i; $z++) {
     echo " ";
     }
-    for($o = 1; $o < $s; $o++) {
+    for($o = 0; $o < $s; $o++) {
+        echo "*";
+    }
+    echo "\n";
+}
+
+echo "\n";
+
+$num = 5;
+for ($i = 0; $i < $num; $i++) {
+    for($z = 0; $z < $num - $i; $z++) {
+        echo " ";
+    }
+    for($y = 0; $y <= $i; $y++) {
         echo "*";
     }
     echo "\n";
