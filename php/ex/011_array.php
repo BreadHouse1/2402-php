@@ -103,7 +103,7 @@ arsort($arr);
 
 print_r($arr);
 
-// ksort() : 배열의 키를 기주으로 내림차순 정렬
+// ksort() : 배열의 키를 기준으로 내림차순 정렬
 ksort($arr);
 
 print_r($arr);

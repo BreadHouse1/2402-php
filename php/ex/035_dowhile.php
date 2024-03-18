@@ -4,3 +4,13 @@ do {
     echo "test";
 }
 while(false);
+
+echo "\n";
+
+for($dan = 1; $dan < 6; $dan++) {
+    for($i = 0; $i < $dan-=3; $i++) {
+        echo "s";
+    }
+
+    echo "\n";
+}
