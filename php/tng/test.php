@@ -1,16 +1,29 @@
 <?php
-// 1~70까지 중 랜덤 수 6개를 중복되지 않게 뽑고, 그 수를 낮은 수부터 오름차순으로 배열에 넣어 출력하시오
+// 1~70까지 중 랜덤 수 6개를 중복되지 않게 뽑고, 그 수를 낮은 수부터 d로 배열에 넣어 출력하시오
 $arr_base = range(1, 70);
 $arr_num = [];
 shuffle($arr_base);
 $result = array_slice($arr_base, 0, 6);
-if($result[0] > $result[1]) {
-    $arr_num = $result[0];
-    $result[0] = $result[1];
-    $result[1] = $arr_num;
-}
-else if($number2 > $number) {
-        
+for($i = 0; $i < 5; $i++) {
+    if($result[$i] > $result[$i+1]){
+        $arr_num = $result[$i];
+        $result[$i] = $result[$i+1];
+        $result[$i+1] = $arr_num;
+    }
 }
 
+print_r($result);
 
+// 1~100 까지 숫자중 3의 배수를 제외하고 아래처럼 출력해주세요.
+
+// for($i = 1, $s = 1; $i < 101; $i++, $s++) {
+//     if ($s < 3) {
+//         echo $i."입니다.\n";
+//     }
+//     else {
+//         echo "";
+//     }
+//     if ($s === 3) {
+//         $s = 0;
+//     }
+// }
