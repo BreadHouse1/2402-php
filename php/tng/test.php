@@ -4,7 +4,8 @@ $arr_base = range(1, 70);
 $arr_num = [];
 shuffle($arr_base);
 $result = array_slice($arr_base, 0, 6);
-for($i = 0; $i < 5; $i++) {
+print_r($result);
+for($i = 0,$s = 0; $i < 5; $i++,$s++) {
     if($result[$i] > $result[$i+1]){
         $arr_num = $result[$i];
         $result[$i] = $result[$i+1];
@@ -12,7 +13,7 @@ for($i = 0; $i < 5; $i++) {
     }
 }
 
-print_r($result);
+print_r(array_slice($result,0,6));
 
 // 1~100 까지 숫자중 3의 배수를 제외하고 아래처럼 출력해주세요.
 
