@@ -5,13 +5,46 @@ $arr_num = [];
 shuffle($arr_base);
 $result = array_slice($arr_base, 0, 6);
 print_r($result);
-for($i = 0,$s = 0; $i < 5; $i++,$s++) {
+for($i = 0,$s = 0; $s < 5; $i++,$s++) {
     if($result[$i] > $result[$i+1]){
         $arr_num = $result[$i];
         $result[$i] = $result[$i+1];
         $result[$i+1] = $arr_num;
     }
 }
+$i = 0;
+for($i = 0,$s = 0; $s < 5; $i++,$s++) {
+    if($result[$i] > $result[$i+1]){
+        $arr_num = $result[$i];
+        $result[$i] = $result[$i+1];
+        $result[$i+1] = $arr_num;
+    }
+}
+$i = 0;
+for($i = 0,$s = 0; $s < 5; $i++,$s++) {
+    if($result[$i] > $result[$i+1]){
+        $arr_num = $result[$i];
+        $result[$i] = $result[$i+1];
+        $result[$i+1] = $arr_num;
+    }
+}
+$i = 0;
+for($i = 0,$s = 0; $s < 5; $i++,$s++) {
+    if($result[$i] > $result[$i+1]){
+        $arr_num = $result[$i];
+        $result[$i] = $result[$i+1];
+        $result[$i+1] = $arr_num;
+    }
+}
+$i = 0;
+for($i = 0,$s = 0; $s < 5; $i++,$s++) {
+    if($result[$i] > $result[$i+1]){
+        $arr_num = $result[$i];
+        $result[$i] = $result[$i+1];
+        $result[$i+1] = $arr_num;
+    }
+}
+
 
 print_r(array_slice($result,0,6));
 
