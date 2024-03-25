@@ -8,6 +8,6 @@ CREATE TABLE boards (
 	content 		VARCHAR(1000) 		NOT NULL,
 	created_at 		DATETIME 			NOT NULL DEFAULT CURRENT_TIMESTAMP(),
 	updated_at 		DATETIME 			NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-	created_at 		DATETIME  
+	deleted_at 		DATETIME  
 );
 
