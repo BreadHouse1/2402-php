@@ -56,3 +56,25 @@ function db_select_boards_paging(&$conn, &$array_param) {
     //리턴
     return $result;
 }
+
+// Inser row to boards 게시판 테이블 레코드 작성 처리
+function db_insert_boards(&$conn, &$array_param) {
+    // SQL
+    $sql = 
+        " INSERT INTO boards( ".
+            "   title ".
+            " , content ".
+            " ) ".
+            " VALUES( ".
+            "   :title ".
+            " , :content ".
+            " ) "
+            ;
+
+    // Query 실행
+    $stmt = $conn->prepare($sql); // sql 값 저장
+    $stmt->execute($array_param); // sql 값 입력
+
+    // 리턴
+    return $stmt->rowCount();
+}
