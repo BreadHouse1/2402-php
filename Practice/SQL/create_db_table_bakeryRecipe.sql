@@ -1,0 +1,13 @@
+CREATE DATABASE Bakery_Recipe;
+
+USE Bakery_Recipe;
+
+CREATE TABLE boards (
+	NO 				INT 				PRIMARY KEY AUTO_INCREMENT,
+	title 			VARCHAR(100) 		NOT NULL,
+	content 			VARCHAR(1000) 		NOT NULL,
+	created_at 		DATETIME 			NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+	updated_at 		DATETIME 			NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+	deleted_at 		DATETIME,
+	file_path 		VARCHAR(255)  
+);
