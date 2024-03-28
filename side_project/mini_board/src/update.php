@@ -1,5 +1,5 @@
 <?php
-require_once( $_SERVER["DOCUMENT_ROOT"]."/practice_config.php"); // 설정 파일 호출
+require_once( $_SERVER["DOCUMENT_ROOT"]."/config.php"); // 설정 파일 호출
 require_once(FILE_LIB_DB);
 
 try {
@@ -94,7 +94,7 @@ try {
     $conn->commit();
 
     // 상세 페이지 이동
-    header("Location: practice_detail.php?no={$no}&page={$page}");
+    header("Location: detail.php?no={$no}&page={$page}");
     
   }
 }
@@ -116,50 +116,47 @@ finally {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../practice_css/practice_common.css">
+    <link rel="stylesheet" href="./css/common.css">
 </head>
 <body>
+  <?php require_once(FILE_HEADER); ?>
     <main>
-        <form action="./practice_update.php" method="post">
+      <form action="./update.php" method="post">
         <input type="hidden" name="no" value="<?php echo $no; ?>">
         <input type="hidden" name="page" value="<?php echo $page; ?>">
-          <div class="main-middle">
-            <div class="line-item">
-              <label for="title" class="line-title">
-                <div>제목</div>
-              </label>
-              <div class="line-content">
-                <input type="text" name="title" id="title" value="<?php echo $item["title"]; ?>">
-              </div>
-            </div>
-            <div class="inset-line">
-                <div class="list-num"><?php echo $item["no"]; ?></div>
-                <label for="file">
-                    <div class="btn-upload">이미지 파일</div>
-                </label>
-            </div>
-            <input type="file" accept=".jpg, .jpeg, .png" id="file">
-            <div class="line-item">
-              <label for="content" class="line-title">
-                <div class="line-title">내용</div>
-              </label>
-              <div class="line-content">
-
-              </div>
+        <div class="main-middle">
+          <div class="line-item">
+            <div class="line-title">게시글 번호</div>
+            <div class="line-content"><?php echo $item["no"]; ?></div>
+          </div>
+          <div class="line-item">
+            <label for="title" class="line-title">
+              <div>제목</div>
+            </label>
+            <div class="line-content">
+              <input type="text" name="title" id="title" value="<?php echo $item["title"]; ?>">
             </div>
           </div>
-          <div class="main-bottom">
-            <button type="submit" class="button-submit">완료</button>
-            <a href="./practice_detail.php?no=<?php echo $no; ?>&page=<?php echo $page; ?>" class="button-submit">취소</a>
+          <div class="line-item">
+            <label for="content" class="line-title">
+              <div class="line-title-textarea">내용</div>
+            </label>
+            <div class="line-content">
+              <textarea name="content" id="content" cols="30" rows="10"><?php echo $item["content"]; ?></textarea>
+            </div>
           </div>
-        </form>
-      </main>
+        </div>
+        <div class="main-bottom">
+          <button type="submit" class="a-button small-button">완료</button>
+            <a href="./detail.php?no=<?php echo $no; ?>&page=<?php echo $page; ?>" class="a-button small-button">취소</a>
+        </div>
+      </form>
+    </main>
 </body>
 </html>

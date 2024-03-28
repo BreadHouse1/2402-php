@@ -10,7 +10,7 @@ define("MARIADB_DSN", "mysql:host=".MARIADB_HOST.";dbname=".MARIADB_NAME.";chars
                                                             
 // PHP Path 관련																
 define("ROOT", $_SERVER["DOCUMENT_ROOT"]."/"); // 웹서버 root 패스														
-define("FILE_LIB_DB", ROOT."lib/lib_db.php"); // DB 파일 패스															
+define("FILE_LIB_DB", ROOT."./practice_lib/practice_lib.php"); // DB 파일 패스															
                                                             
 // 유저 요청 정보
 define("REQUEST_METHOD", strtoupper($_SERVER["REQUEST_METHOD"])); //($_SERVER["REQUEST_METHOD"]) 현재 데이터 요청 방식이 GET 인지 POST인지 묻는 함수

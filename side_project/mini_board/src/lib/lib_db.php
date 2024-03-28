@@ -120,3 +120,23 @@ function db_delete_boards_no(&$conn, &$array_param) {
     // 리턴
     return $stmt->rowCount();
 }
+
+// PK로 특정 레코드 수정
+function db_update_boards_no(&$conn, &$array_param) {
+    $sql = 
+    " UPDATE ".
+        " boards ".
+    " SET ".
+        " title = :title, ".
+        " content = :content, ".
+        " updated_at = NOW() ".
+    " WHERE ".
+        " no = :no "
+    ;
+
+    // Query 실행
+    $stmt = $conn->prepare($sql);
+    $stmt->execute($array_param);
+    // 리턴
+    return $stmt->rowCount();
+}

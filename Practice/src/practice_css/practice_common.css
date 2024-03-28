@@ -106,10 +106,6 @@ main [class^=main-] {
 
 }
 
-.line-title-textarea {
-    padding-top: 75%;
-}
-
 .line-content {
     background-color: #fff;
     padding: 7px 5px;
