@@ -79,7 +79,6 @@ finally {
             <a href="./practice_main.php?page=<?php echo $prev_page_num ?>" class="a-button small-button">이전</a>
             <?php
             for($num = 1; $num <= $max_page_num; $num++){
-
             ?>
             <a href="./practice_main.php?page=<?php echo $num ?>" class="a-button small-button"><?php echo $num?></a>
             <?php 

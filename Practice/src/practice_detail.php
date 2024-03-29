@@ -11,6 +11,7 @@ try {
   $no = isset($_GET["no"]) ? $_GET["no"] : ""; // no 획득
   $page = isset($_GET["page"]) ? $_GET["page"] : ""; // page 획득
 
+
   // 파라미터 예외처리
   $arr_err_param = [];
   if($no === "") {
@@ -72,7 +73,7 @@ finally {
                 <div class="list-created"><?php echo $item["created_at"] ?></div>
             </div>
             <div class="detail-content">
-              <?php echo $item["content"] ?>
+              <?php echo '<img src="' . $item["file_path"] . '"><br>' . $item["content"]; ?>
             </div>
           </div>
           <div class="main-bottom">

@@ -106,9 +106,20 @@ main [class^=main-] {
 
 }
 
+.center {
+    padding-top: 18vh;
+}
+
+.line-title-content {
+    background-color: #fff;
+    padding: 10px;
+}
+
 .line-content {
     background-color: #fff;
-    padding: 7px 5px;
+    padding: 10px;
+    height: 350px;
+    overflow-y: scroll;
 }
 
 .list-head {

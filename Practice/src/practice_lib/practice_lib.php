@@ -65,10 +65,12 @@ function db_insert_boards(&$conn, &$array_param) {
         " INSERT INTO boards( ".
             "   title ".
             " , content ".
+            " , file_path ".
             " ) ".
             " VALUES( ".
             "   :title ".
             " , :content ".
+            " , :file_path ".
             " ) "
             ;
 
@@ -87,7 +89,8 @@ function db_select_boards_no(&$conn, &$array_param) {
         " no ".			
         " ,title ".			
         " ,content	".		
-        " ,created_at ".			
+        " ,created_at ".
+        " , file_path ".			
     " FROM ".				
         " boards ".			
     " WHERE ".				
@@ -124,13 +127,19 @@ function db_delete_boards_no(&$conn, &$array_param) {
 
 // PK로 특정 레코드 수정
 function db_update_boards_no(&$conn, &$array_param) {
+    $add_file_path = "";
+    if(isset($array_param["file_path"])) {
+        $add_file_path = " ,file_path = :file_path ";
+    }
+
     $sql = 
     " UPDATE ".
         " boards ".
     " SET ".
-        " title = :title, ".
-        " content = :content, ".
-        " updated_at = NOW() ".
+        " title = :title ".
+        " ,content = :content ".
+        " ,updated_at = NOW() ".
+        $add_file_path.
     " WHERE ".
         " no = :no "
     ;
