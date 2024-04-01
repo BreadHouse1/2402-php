@@ -18,9 +18,14 @@ try {
     // 페이지 관련 설정 셋팅
     $max_page_num = ceil( $result_board_cnt / $list_cnt); // 최대 페이지 수
     $offset = $list_cnt * ($page_num -1); // OFFSET
-    $prev_page_num = ($page_num -1 ) < 1 ? 1 : $page_num - 1; // 이전 버튼 페이지 번호
-    $next_page_num = ($page_num +1 ) > $max_page_num ? $max_page_num : ($page_num + 1); // 다음 버튼 페이지 번호
+    $max_cnt_num = 5; // 한 화면에 표시하고 싶은 페이지
+    
+    $min_page_cnt = ceil($page_num / $max_cnt_num ) * $max_cnt_num - ($max_cnt_num - 1); // 페이지 시작 숫자
+    $max_page_cnt = $min_page_cnt + ($max_cnt_num - 1); // 페이지 마지막 숫자
+    $max_page_cnt = $max_page_cnt > $max_page_num ? $max_page_num :$max_page_cnt;
 
+    $prev_page_num = ($page_num - 1 ) < 1 ? 1 : $page_num - 1; // 이전 버튼 페이지 번호
+    $next_page_num = ($page_num + 1 ) > $max_page_num ? $max_page_num : $page_num + 1; // 다음 버튼 페이지 번호
     // 게시글 리스트 조회
     $arr_param = [
         "list_cnt" => $list_cnt,
@@ -78,9 +83,9 @@ finally {
         <div class="main-bottom">
             <a href="./practice_main.php?page=<?php echo $prev_page_num ?>" class="a-button small-button">이전</a>
             <?php
-            for($num = 1; $num <= $max_page_num; $num++){
+            for($num = $min_page_cnt; $num <= $max_page_cnt; $num++){
             ?>
-            <a href="./practice_main.php?page=<?php echo $num ?>" class="a-button small-button"><?php echo $num?></a>
+            <a href="./practice_main.php?page=<?php echo $num?>" class="a-button small-button"><?php echo $num?></a>
             <?php 
             }
             ?>
@@ -89,3 +94,10 @@ finally {
     </main>
 </body>
 </html>
+
+
+<!-- $max_cnt_num = 5; // 한 화면에 표시하고 싶은 페이지
+
+    $num_cnt = ($max_page_num / $max_cnt_num); // 페이지 그룹
+    $min_page_cnt = (($num_cnt - 1) * $max_cnt_num + 1); // 페이지 시작 숫자
+    $max_page_cnt = ($num_cnt * $max_cnt_num); // 페이지 마지막 숫자 -->
