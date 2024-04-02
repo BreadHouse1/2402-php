@@ -24,8 +24,10 @@ try {
     $max_page_cnt = $min_page_cnt + ($max_cnt_num - 1); // 페이지 마지막 숫자
     $max_page_cnt = $max_page_cnt > $max_page_num ? $max_page_num :$max_page_cnt;
 
-    $prev_page_num = ($page_num - 1 ) < 1 ? 1 : $page_num - 1; // 이전 버튼 페이지 번호
-    $next_page_num = ($page_num + 1 ) > $max_page_num ? $max_page_num : $page_num + 1; // 다음 버튼 페이지 번호
+    $prev_page_num = ($page_num - 1 ) < 1 ? 1 : $page_num - 5; // 이전 버튼 페이지 번호 (5페이지씩 이동)
+    $prev_page_num = 1 < $prev_page_num ? $prev_page_num : 1; // 처음 페이지를 넘어갈 경우 이전페이지에 처음 페이지 번호를 넣음
+    $next_page_num = ($page_num + 1 ) > $max_page_num ? $max_page_num : $page_num + 5; // 다음 버튼 페이지 번호 (5페이지씩 이동)
+    $next_page_num = $max_page_num < $next_page_num ? $max_page_num : $next_page_num; // 마지막 페이지를 넘어갈 경우 다음페이지에 마지막페이지 번호를 넣음
     // 게시글 리스트 조회
     $arr_param = [
         "list_cnt" => $list_cnt,

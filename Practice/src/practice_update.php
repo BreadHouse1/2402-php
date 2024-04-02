@@ -171,13 +171,16 @@ finally {
                     <div class="btn-upload">이미지 파일</div>
                 </label>
             </div>
-            <input type="file" accept="img/*" name="file" id="file">
+            <input type="file" accept="img/*" name="file" id="file" onchange="readURL(this)">
             <div class="line-item">
               <label for="content" class="line-title">
                 <div class="line-title center">내용</div>
               </label>
               <div class="line-content">
-                <?php echo '<img src="' . $item["file_path"] . '">' ?>
+                <img id="preview" />
+                <?php if (!empty($item["file_path"])){ ?>
+                <img src="<?php echo $item["file_path"]; ?>" id="existing_image">
+                <?php } ?>
                 <textarea name="content" id="content" cols="30" rows="10"><?php echo $item["content"]; ?></textarea>
               </div>
             </div>
@@ -189,4 +192,5 @@ finally {
         </form>
       </main>
 </body>
+<script src="./js/img.js"></script>
 </html>

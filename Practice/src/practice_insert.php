@@ -26,7 +26,7 @@ if (REQUEST_METHOD === "POST") {
     // strtolower(pathinfo() : 파일경로를 가져오는 내장함수
     // $_FILES["file"]["name"] : 슈퍼 글로벌 변수 $_FILES에 있는 file모든정보를 가져오는 file 안에 name을 써서 이름만 가져옴
     //  PATHINFO_EXTENSION 파일의 확장자 명을 가져옴
-    if(!isset($_FILES["file"]["name"]))  { 
+    if(isset($_FILES["file"]["name"]))  { 
       $imageFileType = strtolower(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION));
 
       if ($imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png") {
@@ -117,12 +117,13 @@ if (REQUEST_METHOD === "POST") {
                     <div class="btn-upload">이미지 파일</div>
                 </label>
             </div>
-            <input type="file" accept="img/*" name="file" id="file">
+            <input type="file" accept="img/*" name="file" id="file" onchange="readURL(this)">
             <div class="line-item">
               <label for="content" class="line-title">
                 <div class="line-title center">내용</div>
               </label>
               <div class="line-content">
+                <img id="preview" />
                 <textarea name="content" id="content" cols="30" rows="10"></textarea>
               </div>
             </div>
@@ -134,4 +135,5 @@ if (REQUEST_METHOD === "POST") {
         </form>
       </main>
 </body>
+<script src="./js/img.js"></script>
 </html>
