@@ -17,7 +17,7 @@ const FNC_MY_SUM = function(a, b) {
     return a + b;
 }
 
-// 화살표 함수
+// 화살표 함수 function을 생략가능
 const FNC_MY_SUM_2 = (a, b) => a + b;
 console.log(FNC_MY_SUM_2(1,2));
 
@@ -49,7 +49,7 @@ const FNC_TEST3_A = str => {
 }
 
 // 콜백 함수
-// 다른 함수의 파라미터롤 전달되어 특정 조건에 따라 호출되는 함수
+// 다른 함수의 파라미터를 전달되어 특정 조건에 따라 호출되는 함수
 const MY_SUB = (callBack, num) => {
     if(num === 3) {
         return '3입니다';

@@ -140,4 +140,5 @@ console.log(result); // [3, 6, 9]
 // foreach() : 배열의 모든요소에 대해서 콜백 함수를 반복 실행
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+// foreach의 첫변수는 value값이 두번째변수에는 index(key)값이 들어간다
 arr.forEach((val, key) => console.log(val * 2, key));
