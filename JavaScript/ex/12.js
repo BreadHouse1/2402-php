@@ -1,5 +1,6 @@
 // 함수 (function)
 // 입력을 받아 출력을하는 일련의 과정을 정의한 것
+// return이 없을 경우 변수로 함수 값을 받아 올 수 없다
 
 // 함수 선언식
 function mySum(a, b) {
@@ -17,7 +18,7 @@ const FNC_MY_SUM = function(a, b) {
     return a + b;
 }
 
-// 화살표 함수 function을 생략가능
+// 화살표 함수 function과 return을 생략가능
 const FNC_MY_SUM_2 = (a, b) => a + b;
 console.log(FNC_MY_SUM_2(1,2));
 
@@ -76,3 +77,17 @@ const MY_CLASS = (function () {
 })();
 
 MY_CLASS.myPrint();
+
+// 함수 표현식 : 재할당 불가
+FNC1(1, 3); // 사용불가
+const FNC1 = (a, b) => a + b;
+
+// 함수 선언식 : 재할당 가능
+
+myFnc1(1, 3); // 사용가능
+
+function myFnc1(a, b) {
+    return a + b;
+}
+
+// 표현식과 선언식의 차이는 호이스팅과 재할당의 차이가있다

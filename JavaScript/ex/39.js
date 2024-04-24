@@ -1,4 +1,6 @@
+// ---------
 // 요소 선택
+// ---------
 
 // 고유한 id로 요소를 선택하는 법
 const TITLE = document.getElementById('title');
@@ -47,7 +49,9 @@ const SECOND_CHILD = document.querySelector('#ul > li:nth-child(3)');
 
 SECOND_CHILD.style = 'color: blue';
 
+// ---------
 // 요소 조작
+// ---------
 
 // textContent : content를 바꿈
 // 태그는 들어가지않음 <a>텍스트 컨텐츠로 바꿈</a>그대로 출력
@@ -65,7 +69,10 @@ INPUT1.setAttribute('name', 'input1');
 // removeAttribute(속성명) : 해당 속성을 요소에서 제거
 INPUT1.removeAttribute('placeholder');
 
+// ------------
 // 요소 스타일링
+// ------------
+
 // classList : 클래스로 스타일에 맞게 추가 및 수정
 // add 추가
 TITLE.classList.add('font-color-red', 'css1', 'css2') // 여러개도 추가 가능
@@ -86,6 +93,10 @@ CSS_CLS_ALL.forEach((node, key) => {
     }
 });
 
+// 삼항 연산자 사용
+const items = document.querySelectorAll('#ul > li');
+items.forEach((item, key) => (item.style.color = key % 2 === 0 ? 'red' : 'blue'));
+
 // ex) 리스트의 요소들의 글자색을 짝수는 빨강, 홀수는 파랑으로 수정
 // 짝수
 const EVEN_CHILD = document.querySelectorAll('#ul > li:nth-child(even)'); //li:nth-child(even) 여기서 even은 짝수의 값만 들고오는 코드
@@ -93,3 +104,42 @@ EVEN_CHILD.forEach(node => node.style.color = 'red');
 // 홀수
 const ODD_CHILD = document.querySelectorAll('#ul > li:nth-child(odd)'); // odd는 홀수만 가져오는 코드
 ODD_CHILD.forEach(node => node.style.color = 'blue');
+
+// ---------------
+// 새로운 요소 생성
+// ---------------
+
+// createElement(태그명) : 새로운 요소 생성
+const NEW_LI = document.createElement('li'); // li태그를 만듦
+NEW_LI.innerHTML = '광산게임'; // NEW_LI에 생성된 li 에 innerHTML로 요소 추가
+
+const TARGET = document.querySelector('#ul'); // 삽입할 부모요소 선택
+
+// appendChild(노드) : 해당 부모 노드에 마지막 자식으로 노드 추가
+TARGET.appendChild(NEW_LI);
+
+// 동일한 형태의 요소를 여러개 추가하는 법
+for (let i = 0; i < 3; i++) {
+    const TEST_LI2 = document.createElement('li');
+    TEST_LI2.innerHTML = '쿠키게임';
+    const TARGET2 = document.querySelector('#ul');
+    TARGET2.appendChild(TEST_LI2);
+}
+
+// insertBefore(새로운노드, 기존노드) : 해당 부모 노드의 자식인 기준노드 앞에 새로운 노드 추가
+const NEW_LI2 = document.createElement('li');
+NEW_LI2.innerHTML = '굴착소년쿵야';
+
+const hyeunSoo = document.querySelector('#ul > li:nth-child(3)')
+
+TARGET.insertBefore(NEW_LI2, hyeunSoo);
+
+const TEST_LI = document.createElement('li');
+TEST_LI.innerHTML = '프리셀';
+
+const hyeunSoo2 = document.querySelector('#ul > li:nth-child(5)');
+
+TARGET.insertBefore(TEST_LI, hyeunSoo2);
+
+// removeChild() : 해당 부모 노드의 자식을 삭제
+TARGET.removeChild(TEST_LI); // 위의 프리셀이 삭제
