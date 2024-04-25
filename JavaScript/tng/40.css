@@ -3,5 +3,8 @@
     height: 100px;
     width: 100px;
     margin: 700px 300px;
-    border: 1px solid black;
+}
+
+.display{
+    display: none;
 }

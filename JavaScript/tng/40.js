@@ -1,13 +1,20 @@
 const BTN = document.querySelector('#btn');
 const BLOCK = document.querySelector('.block');
+const HEART = document.querySelector('.heart');
+
+
+// function NONE() {
+//     HEART.setAttribute('class', 'display');
+// }
 
 function Heart() {
     alert('두근두근');
+    // HEART.removeAttribute('class', 'display');
 }
 
 function search(e) {
     alert('들켰다!');
-    e.target.style.backgroundColor = 'black'
+    e.target.style.backgroundColor = 'black';
     BLOCK.removeEventListener('mouseenter', Heart);
     BLOCK.removeEventListener('click', search);
     BLOCK.addEventListener('click', hide );
@@ -25,9 +32,10 @@ function hide(e) {
 }
 
 
-
 BTN.addEventListener('click', () => alert('안녕하세요. 숨어있는 div를 찾아보세요'))
 
 BLOCK.addEventListener('mouseenter', Heart);
+
+// BLOCK.addEventListener('mouseleave', NONE );
 
 BLOCK.addEventListener('click', search);
