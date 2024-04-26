@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    font-size: 4rem;
+    background-color: #000;
+    color: #fff;
+    padding: 1.5rem;
+}
+
+.container {
+    margin: 50px auto;
+    width: 200px;
+    height: 200px;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+}
+
+.img-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 0.5rem 1rem;
+    gap: 30px;
+}
+
+p {
+    background-color: gray;
+    padding: 10px 0px;
+}
