@@ -17,7 +17,7 @@ class UsersModel extends Model {
         }
 
         // WHERE절 추가
-        $sql .= implode(" and ", $arrWhere);
+        $sql .= implode(" and ", $arrWhere); // $sql 에 .=로 기존데이터에 추가로 $arrWhere값을 넣음
 
         // 데이터 획득
         $stmt = $this->conn->prepare($sql);
