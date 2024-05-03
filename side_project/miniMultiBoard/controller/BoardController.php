@@ -52,9 +52,12 @@ class BoardController extends Controller {
     public function addPost() {
         // 이미지 파일 패스 작성
         // 현업에서는 파일 이름이 중복 될 수 있으니 UUID를 사용
-        $path = "/"._PATH_IMG.$_FILES["img"]["name"];
+        $path = "";
+        if(!empty($_FILES["img"]["name"])) {
+            $fath = "/"._PATH_IMG.$_FILES["img"]["name"];
+            move_uploaded_file($_FILES["img"]["tmp_name"], _ROOT.$path );
+        }
         
-        move_uploaded_file($_FILES["img"]["tmp_name"], _ROOT.$path );
 
         $requestData = [
             "b_type"        => $_POST["b_type"]
@@ -87,6 +90,9 @@ class BoardController extends Controller {
         // 게시글 정보 조회
         $modelBoards = new BoardsModel();
         $resultBoard = $modelBoards->getBoard($requestData);
+
+        // 로그인 유저 pk 추가
+        $resultBoard[0]["login_u_id"] = $_SESSION["u_id"];
 
         // JSON 변환
         $response = json_encode($resultBoard); // json_encode : json으로 바꿔주는 내장함수

@@ -15,6 +15,8 @@ class BoardsModel extends Model {
             ."  boards "
             ." WHERE "
             ."  b_type = :b_type "
+            ."  and "
+            ."  deleted_at IS NUll "
             ." ORDER BY "
             ."  b_id DESC "
             ;            
