@@ -75,7 +75,7 @@
           </div>
           <div class="modal-footer justify-content-between">
             <div>
-              <button id="my-btn-delete" type="button" class="btn btn-warning">삭제</button>
+              <button id="my-btn-delete" type="button" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
             </div>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
           </div>

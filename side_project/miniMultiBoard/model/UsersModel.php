@@ -59,4 +59,49 @@ class UsersModel extends Model {
             exit;
         }
     }
+
+    public function myGetUserInfo($paramArr) {
+        try {
+            $sql = " SELECT * "
+            ." FROM users "
+            ." WHERE "
+            ."  u_id = :u_id "
+            ;
+        // 데이터 획득
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($paramArr);
+        $result = $stmt->fetchAll();
+
+        return $result;
+        }  
+    
+        catch (\Throwable $th) {
+            echo "UserModel -> mygetUserInfo(), ".$th->getMessage();
+            exit;
+        }
+    }
+
+
+    public function updateUserInfo($paramArr) {
+        try {
+            $sql =
+            " UPDATE users"
+            ." SET "
+            ." u_pw = :u_pw "
+            ." ,u_name = :u_name "
+            ." ,updated_at = NOW() "
+            ." WHERE "
+            ."  u_id = :u_id "
+            ;
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($paramArr);
+
+            return $stmt->rowCount();
+        }
+        catch (\Throwable $th) {
+            echo "UsersModel -> updateUserInfo(), ".$th->getMessage();
+            exit;
+        }
+    }
 }

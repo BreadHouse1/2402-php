@@ -17,21 +17,20 @@
  <?php require_once("view/inc/header.php"); ?>
 
   <main class="d-flex justify-content-center align-items-center h-75">
-    <form style="width: 300px" action="/user/regist" method="post">
+    <form style="width: 300px" action="/user/update" method="post">
       <?php require_once("view/inc/errorMsg.php"); ?>
-      <label for="u_email" class="form-label">이메일</label>
-      <span id="print-chk-email"></span>
-      <button id="btn-chk-email" type="button" class="btn btn-secondary float-end">중복확인</button>
-      <input type="text" class="form-control mb-3" id="u_email" name="u_email">
 
       <label for="u_name" class="form-label">이름</label>
-      <input type="text" class="form-control mb-3" id="u_name" name="u_name">
+      <input type="text" class="form-control mb-3" id="u_name" name="u_name" value="<?php echo $this->myGetUserInfo("u_name"); ?>">
 
       <label for="u_pw" class="form-label">비밀번호</label>
       <input type="password" class="form-control mb-3" id="u_pw" name="u_pw">
 
-      <button id="my-btn-complete" type="submit" disabled="disabled" class="btn btn-dark ">완료</button>
-      <a href="/user/login" class="btn btn-secondary float-end">취소</a>
+      <label for="u_pw_chk" class="form-label">비밀번호 확인</label>
+      <input type="password" class="form-control mb-3" id="u_pw_chk" name="u_pw_chk">
+
+      <button id="my-btn-complete" type="submit" class="btn btn-dark" value="<?php echo $_SESSION["u_id"]; ?>" >수정</button>
+      <a href="/board/list" class="btn btn-secondary float-end">취소</a>
     </form>
   </main>
 

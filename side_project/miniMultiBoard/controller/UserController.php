@@ -6,6 +6,12 @@ use model\UsersModel;
 use lib\UserValidator;
 
 class UserController extends Controller {
+    private $userInfo;
+
+    public function myGetUserInfo($key) {
+        return $this->userInfo[$key];
+    }
+
     // 로그인 페이지로 이동
     protected function loginGet(){
         return "login.php";
@@ -155,4 +161,71 @@ class UserController extends Controller {
         return base64_encode($pw.$email);
     }
 
+    // 유저 정보 수정
+
+    protected function updateGet() {
+
+        $selectData = [
+            "u_id" => $_SESSION["u_id"]
+        ];
+
+        // 가져온 정보를 세션의 키에 담아서 update로 보내줌
+        $modelUsers = new UsersModel();
+        $this->userInfo = $modelUsers->getUserInfo($selectData);
+        return "update.php";
+    }
+
+    // 회원 정보 수정 처리
+    protected function updatePost() {
+        // 유저 정보 획득
+
+        $selectData = [
+            "u_id" => $_SESSION["u_id"]
+        ];
+
+        $modelUsers = new UsersModel();
+        $this->userInfo = $modelUsers->getUserInfo($selectData);
+        
+        // 유저 입력 정보 획득
+        $requestData = [
+            "u_pw"     => $_POST["u_pw"]
+            ,"u_name"     => $_POST["u_name"]
+            ,"u_id"     => $_SESSION["u_id"]
+        ];
+
+        // 유효성 체크
+        $requestChkData = [
+            "u_pw"     => $_POST["u_pw"]
+            ,"u_pw_chk" => $_POST["u_pw_chk"]
+            ,"u_name"     => $_POST["u_name"]
+            ,"u_id"     => $_SESSION["u_id"]
+            ,"d_u_pw" => $this->myGetUserInfo("u_pw")
+            ,"u_email" => $this->myGetUserInfo("u_email")
+        ];
+
+        $resultValidator = UserValidator::chkValidator($requestChkData);
+        if(count($resultValidator) > 0) {
+            $this->arrErrorMsg = $resultValidator;
+            return "update.php";
+        }
+        
+        // 비밀번호 암호화
+        $requestData["u_pw"] = $this->encryptionPassword($requestData["u_pw"], $this->myGetUserInfo("u_email"));
+
+        // 회원 정보 인서트 처리
+        $modelUsers->beginTransaction();
+        $resultUserInsert = $modelUsers->updateUserInfo($requestData);
+
+        if($resultUserInsert === 1) {
+            $modelUsers->commit();
+        }
+        else {
+            $modelUsers->rollBack();
+            $this->arrErrorMsg = ["정보 수정에 실패 했습니다."];
+            return "update.php";
+        }
+
+        return "Location: /board/list";
+    }
 }
+

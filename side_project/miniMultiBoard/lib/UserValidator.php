@@ -22,14 +22,6 @@ class UserValidator {
             }
         }
 
-        // 패스워드 체크
-        if(array_key_exists("u_pw", $param_arr)) {
-            // preg_match (패턴, 문자열, 담을변수) : 특정 문자열에서 패턴을 찾고 변수에 담음
-            if(preg_match($patternPassword, $param_arr["u_pw"], $matches) === 0) {
-                $arrErrorMsg[] = "비밀번호는 영어 대소문자 및 숫자, 특수문자(!,@)로 8~20자로 작성해주세요.";
-            }
-        }
-
         // 이름 체크
         // array_key_exists ("찾는키", 체크할 배열) 배열에 특정 키가 있는지 체크 있으면 true 없으면 false
         if(array_key_exists("u_name", $param_arr)) {
@@ -38,6 +30,37 @@ class UserValidator {
                 $arrErrorMsg[] = "이름은 한글만 입력해 주세요.";
             }
         }
+
+        // if(array_key_exists("u_pw", $param_arr) && array_key_exists("u_pw_chk", $param_arr)) {
+        //     if ($param_arr["u_pw"] !== $param_arr["u_pw_chk"]) {
+        //         $arrErrorMsg[] = "비밀번호가 서로 다릅니다.";
+        //     }
+        // }
+
+        // 패스워드 체크
+        if(array_key_exists("u_pw", $param_arr)  && array_key_exists("d_u_pw", $param_arr) && array_key_exists("u_email", $param_arr) && array_key_exists("u_pw_chk", $param_arr)) {
+            $u_pw = base64_encode($param_arr["u_pw"].$param_arr["u_email"]);
+            if ($u_pw === $param_arr["d_u_pw"]) {
+                $arrErrorMsg[] = "이전 비밀번호와 같습니다.";
+            }
+            else if(preg_match($patternPassword, $param_arr["u_pw"], $matches) === 0) {
+                $arrErrorMsg[] = "비밀번호는 영어 대소문자 및 숫자, 특수문자(!,@)로 8~20자로 작성해주세요.";
+            }
+            else if ($param_arr["u_pw"] !== $param_arr["u_pw_chk"]) {
+                $arrErrorMsg[] = "비밀번호가 서로 다릅니다.";
+            }
+        }
+
+        // if (array_key_exists("u_pw", $param_arr)  && array_key_exists("u_pw_chk", $param_arr)) {
+        //     // preg_match (패턴, 문자열, 담을변수) : 특정 문자열에서 패턴을 찾고 변수에 담음
+        //     if(preg_match($patternPassword, $param_arr["u_pw"], $matches) === 0) {
+        //         $arrErrorMsg[] = "비밀번호는 영어 대소문자 및 숫자, 특수문자(!,@)로 8~20자로 작성해주세요.";
+        //     }
+        //     if ($param_arr["u_pw"] !== $param_arr["u_pw_chk"]) {
+        //         $arrErrorMsg[] = "비밀번호가 서로 다릅니다.";
+        //     }
+        // }
+
 
         return $arrErrorMsg;
     }

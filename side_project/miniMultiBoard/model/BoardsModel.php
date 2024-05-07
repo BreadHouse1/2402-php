@@ -91,4 +91,26 @@ class BoardsModel extends Model {
             exit;
         }
     }
+
+    // 삭제 처리
+    public function deleteBoard($paramArr) {
+        try {
+            $sql =
+                " UPDATE boards "
+                ." SET "
+                ."  deleted_at = NOW() "
+                ." WHERE "
+                ."  u_id = :u_id "
+                ."  AND b_id = :b_id "
+            ;
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($paramArr);
+
+            return $stmt->rowCount();
+        } catch (\Throwable $th) {
+            echo "BoardsModel -> deleteBoard(), ".$th->getMessage();
+            exit;
+        }
+    }
 }
