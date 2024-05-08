@@ -14,6 +14,7 @@ class Controller {
     // 비로그인시 접속 불가능한 URL리스트
     private $arrNeedAuth = [
         "board/list"
+        ."user/update"
     ];
 
 

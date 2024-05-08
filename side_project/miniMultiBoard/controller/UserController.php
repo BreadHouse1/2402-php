@@ -178,12 +178,12 @@ class UserController extends Controller {
     // 회원 정보 수정 처리
     protected function updatePost() {
         // 유저 정보 획득
+        $modelUsers = new UsersModel();
 
         $selectData = [
             "u_id" => $_SESSION["u_id"]
         ];
 
-        $modelUsers = new UsersModel();
         $this->userInfo = $modelUsers->getUserInfo($selectData);
         
         // 유저 입력 정보 획득
