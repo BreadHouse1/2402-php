@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\EduController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +121,30 @@ Route::get('/send', function() {
     //         ,'name'=> '홍길동'
     //         ]);
 });
+
+// ------------
+// 컨트롤러 연결
+// ------------
+
+// 커맨드(cmd)로 컨트롤러 생성 : php artisan make:controller 컨트롤러명
+use App\Http\Controllers\TestController;
+Route::get('/test', [TestController::class, 'index']);
+Route::get('/create', [TestController::class, 'create']);
+
+// 리소스 라우터
+// 리소스를 사용하면 이름은 고정
+use App\Http\Controllers\TaskController;
+Route::resource('task', TaskController::class);
+
+// --------------------
+// 블레이드 템플릿 연습용
+// --------------------
+Route::get('/edu', [EduController::class, 'index']);
+
+// ------------
+// DB관련 연습용
+// ------------
+Route::get('/user', [UserController::class, 'eduUser']);
 
 // -----------------------
 // 존재하지 않는 라우터 정의
