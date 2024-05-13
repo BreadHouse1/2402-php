@@ -20,11 +20,11 @@ class BoardFactory extends Factory
     public function definition()
     {
         $arrImg = [
-            '/public/img/cat1.png'
-            ,'/public/img/cat2.png'
-            ,'/public/img/cat3.png'
-            ,'/public/img/cat4.png'
-            ,'/public/img/cat5.png'
+            '/img/cat1.png'
+            ,'/img/cat2.png'
+            ,'/img/cat3.png'
+            ,'/img/cat4.png'
+            ,'/img/cat5.png'
         ];
         return [
             // pk를 기준으로 랜덤생성후 첫번째 결과를 가져옴

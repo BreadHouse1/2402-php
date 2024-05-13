@@ -189,7 +189,7 @@ class UserController extends Controller
         // $result = User::where('id', 13)->restore(); // deleted_at가 다시 null값이됨 updated_at도 갱신이 됨
         
         
-        return var_dump($result);
+        // return var_dump($result);
 
 
     }
