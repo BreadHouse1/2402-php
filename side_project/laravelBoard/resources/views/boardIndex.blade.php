@@ -1,7 +1,7 @@
 @extends('inc.layout')
 
 {{-- 타이틀 --}}
-@section('title', '게시판')
+@section('title', $boardNameInfo->name)
 
 {{-- 자바스크립트 파일 --}}
 @section('script')
@@ -14,7 +14,7 @@
 
 
 <div class="text-center mt-5 mb-5">
-    <h1>자유게시판</h1>
+    <h1>{{$boardNameInfo->name}}</h1>
     <svg 
     xmlns="http://www.w3.org/2000/svg"
     width="50"
@@ -30,7 +30,7 @@
       
 <main>
     @foreach($data as $item)
-        <div class="card">
+        <div class="card" id="card{{$item->id}}">
             <img src="{{$item->img}}" class="card-img-top" alt="고양이">
             <div class="card-body">
             <h5 class="card-title">{{$item->title}}</h5>
@@ -60,7 +60,10 @@
                     <br>
                     <p>살려주세요.</p>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-between">
+                    <div>
+                        <button id="my-btn-delete" type="button" class="btn btn-warning" data-bs-dismiss="modal">삭제</button>
+                    </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                 </div>
             </form>
@@ -75,7 +78,7 @@
             <form action="{{route('board.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 {{-- TODO : type 설정 필요 --}}
-                <input type="hidden" name="type" value="0">
+                <input type="hidden" name="type" value="{{$boardNameInfo->type}}">
                 <div class="modal-header">
                     <input type="text" name="title" class="form-control" placeholder="제목을 입력하세요.">
                 </div>

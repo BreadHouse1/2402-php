@@ -13,8 +13,8 @@
 							게시판
 						</a>
 						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-							@foreach($data as $item)
-                            <li><a class="dropdown-item" href="{{$item->type}}">자유게시판</a></li>
+							@foreach($globalBoardNameInfo as $item)
+                                <li><a class="dropdown-item" href="{{route('board.index').'?type='.$item->type}}">{{$item->name}}</a></li>
                             @endforeach
 						</ul>
 					</li>
@@ -23,8 +23,10 @@
 			</div>
             @endauth
             @guest
-            <a href="#" class="navbar-nav nav-link text-light" role="button">회원가입</a>
-            @endguest
+			@if(Route::currentRouteName() !== 'regist.index')
+				<a href="{{route('regist.index')}}" class="navbar-nav nav-link text-light" role="button">회원가입</a>
+            @endif
+			@endguest
 		</div>
 	</nav>
 </header>

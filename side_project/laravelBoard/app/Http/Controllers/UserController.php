@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -83,5 +84,70 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         
         return redirect()->route('get.login');
+    }
+
+    // 회원 가입 처리
+    public function regist(Request $request) {
+
+        // 유효성 검사
+        $request->validate([
+            'email' => 'required|email|max:50' // laravel 제공 / 필수 | 형식 | 글자수제한
+            ,'password' => 'required|min:2|max:20|regex:/^[a-zA-Z0-9]+$/'
+            ,'name' => ['required', 'regex:/^[가-힣]{2,30}$/u']
+        ]);
+
+        $insertData = $request->only('email', 'password', 'name');
+        // 비밀번호 암호화
+        $insertData['password'] = Hash::make($insertData['password']);
+
+        // insert 처리
+        User::create($insertData);
+
+        return redirect()->route('get.login');
+    }
+
+    // email 체크 처리
+    public function emailChk(Request $request) {
+        try {
+            // 응답 데이터 초기화
+            $responseData = [
+                'errorFlg' => true
+                ,'emailFlg' => true
+                ,'errorMsg' => ''
+            ];
+
+            // 유효성 검사
+            $validation = Validator::make(
+                $request->only('email')
+                ,[
+                    'email' => ['required', 'email', 'max:50']
+                ]
+            );
+            
+            if($validation->fails()) {
+                throw new Exception('유효성 체크 에러');
+            }
+
+            // 이메일 체크
+            $resultEmail = User::select('id')
+                                    ->where('email', $request->email)
+                                    ->first();
+
+            if(!is_null($resultEmail)) {
+                $responseData['emailFlg'] = true;
+                throw new Exception('이메일 중복');
+            }
+
+            // 정상 처리(사용가능 이메일)
+            $responseData['errorFlg'] = false;
+            $responseData['emailFlg'] = false;
+
+        } catch (\Throwable $th) {
+            $responseData['errorFlg'] = true;
+            $responseData['errorMsg'] = $th->getMessage();
+        } finally {
+            return response()->json($responseData);
+        }
+
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
+use App\Models\BoardName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -27,8 +28,14 @@ class BoardController extends Controller
                                 ->orderBy('created_at', 'DESC')
                                 ->get();
 
+        // 게시판 이름 조회
+        $resultBoardName = BoardName::select('name', 'type')
+                                        ->where('type', $type)
+                                        ->first();
+
         return view('boardIndex')
-                ->with('data', $resultBoardList);
+                ->with('data', $resultBoardList)
+                ->with('boardNameInfo', $resultBoardName);
     }
 
     /**
@@ -49,14 +56,17 @@ class BoardController extends Controller
      */
     public function store(Request $request)
     {
-        // var_dump($request->all());
-        // $request->file('file')->store('/img', 'public');
+        // 파일 서버에 저장
+        $filePath = $request->file('file')->store('img');
+
+        // insert 데이터 작성
         $insertData = $request->only('title', 'content', 'type');
-        $insertData['user_id'] = Auth::id();
-        $insertData['img'] = '/img/cat1.png'; // TODO : 나중에 수정
+        $insertData['user_id'] = Auth::id(); // Auth::id() 로그인한 유저 id를 가져옴
+        $insertData['img'] = "/".$filePath;
+
         $resultInsert = Board::create($insertData);
 
-        return redirect()->route('board.index');
+        return redirect()->route('board.index', ['type' => $request->type]);
     }
 
     /**
@@ -109,6 +119,12 @@ class BoardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // destroy() : 해당 pk를 삭제하고 삭제한 행의 값을 반환
+        Board::destroy($id);
+        $responseData = [
+            'errorFlg' => false,
+            'deletedId' => $id
+        ];
+        return response()->json($responseData);
     }
 }

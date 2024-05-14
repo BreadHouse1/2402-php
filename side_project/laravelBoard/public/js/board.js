@@ -20,6 +20,7 @@ document.querySelectorAll(".my-btn-detail").forEach( item => {
             
             // 삭제 버튼 셋팅
 
+            // auth_id 는 접속중인 id이고 user_id는 글을 등록했을때 저장된 유저id이다
             if(data.auth_id !== data.user_id) {
                 btnDelete.classList.add('d-none');
                 btnDelete.value = '';
@@ -37,8 +38,28 @@ document.querySelectorAll(".my-btn-detail").forEach( item => {
 // 삭제 처리 (async로 한번 해보자)
 
 // 삭제 버튼을 클릭을 할 때 정보가 myDeleteCard(e)로 넘어감
-// document.querySelector('#my-btn-delete').addEventListener('click', myDeleteCard );
+document.querySelector('#my-btn-delete').addEventListener('click', myDeleteCard );
 
+function myDeleteCard(e) {
+    const url = '/board/' + e.target.value; // url
+    
+    // Ajax 처리
+    axios.delete(url)
+    .then(response => {
+        // 예외 발생
+        if(response.data.errorFlg) {
+            alert('삭제에 실패 했습니다.');
+        }
+        else {
+            // 정상 처리
+            const main = document.querySelector('main');
+            const card = document.querySelector('#card' + response.data.deletedId);
+
+            main.removeChild(card);
+        }
+    })
+    .catch();
+}
 // async function myDeleteCard(e) {
 //     // console.log(e.target.value); / 삭제를 누른 해당 카드의 id를 확인할수있다
 
