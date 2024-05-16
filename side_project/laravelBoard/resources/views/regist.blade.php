@@ -31,17 +31,19 @@
       
       <label for="email" class="form-label">이메일</label>
       <span id="print-chk-email"></span>
-      <button id="btn-chk-email" type="button" class="btn btn-secondary float-end">중복확인</button>
-      <input type="text" class="form-control mb-3" id="email" name="email">
+      <button id="btn-chk-email" type="button" class="btn btn-secondary float-end" disabled="disabled">중복확인</button>
+      <input type="text" class="form-control mb-3" id="email" name="email" oninput="emailChk(this)">
+      <span id="print-chk-email-oninput"></span>
 
       <label for="name" class="form-label">이름</label>
-      <input type="text" class="form-control mb-3" id="name" name="name">
+      <input type="text" class="form-control mb-3" id="name" name="name" oninput="nameChk(this)">
+      <span id="print-chk-name"></span>
 
       <label for="password" class="form-label">비밀번호</label>
-      <input type="password" class="form-control mb-3" id="password" name="password">
+      <input type="password" class="form-control mb-3" id="password" name="password" oninput="passwordChk()">
 
       <label for="password_chk" class="form-label">비밀번호 확인</label>
-      <input type="password" class="form-control mb-3" id="password_chk" name="password_chk" oninput="passwordChk(this)">
+      <input type="password" class="form-control mb-3" id="password_chk" name="password_chk" oninput="passwordChk()">
       <span id="print-chk-password"></span>
 
       <button id="my-btn-complete" type="submit" disabled="disabled" class="btn btn-dark ">완료</button>
