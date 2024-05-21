@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
+use PDOException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -45,7 +47,39 @@ class Handler extends ExceptionHandler
 
     // render 이름 고정
     public function render($request, Throwable $exception) {
+        // 데이터 초기화
+        $errorCode = 'E99';
+        $errorMsgList = $this->context();
 
-        return response()->json(['code' => 'E99'], 500);
+        // Exception Instance 체크
+        if($exception instanceof MyValidateException) {
+            $errorCode = $exception->getMessage();
+            $errorMsgList = $exception->context();
+        } else if($exception instanceof MyAuthException) {
+            $errorCode = $exception->getMessage();
+            $errorMsgList = $exception->context();
+        } else if($exception instanceof PDOException) {
+            $errorCode = 'E80';
+        }
+
+        // Response Data 생성
+        $responseData = [
+            'code' => $errorCode
+            ,'msg' => $errorMsgList[$errorCode]['msg']
+        ];
+
+        // 에러 로그
+        // storage->logs폴더에 오늘날짜의 파일에 우리가 만든 에러메세지가 출력 됨
+        Log::error('Error', $responseData);
+
+        return response()->json($responseData, $errorMsgList[$errorCode]['status']);
+    }
+
+    public function context() {
+
+        return [
+            'E80' => ['status' => 500, 'msg' => 'DB 에러'],
+            'E99' => ['status' => 500, 'msg' => '시스템 에러'],
+        ];
     }
 }
