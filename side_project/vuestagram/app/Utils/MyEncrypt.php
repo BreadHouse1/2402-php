@@ -51,4 +51,18 @@ class MyEncrypt {
         // Str::random 랜덤한 문자열을 생성하는 메소드
         return Str::random($saltLength);
     }
+
+    /**
+     * 특정 길이의 솔트를 제거한 문자열 반환
+     * 
+     * @param   string $signature 시그니쳐
+     * @param   int $saltLength 솔트 길이
+     * 
+     * @return   string 솔트 제거한 문자열
+     */
+    public function subSalt(string $signature, int $saltLength) {
+        // mb_substr (베이스, 시작위치, 길이): 원하는 값을 자름 
+        // 오른쪽 끝부터 자르기 위해 음수를 넣음
+        return mb_substr($signature, 0, (-1 * $saltLength));
+    }
 }
