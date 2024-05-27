@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import LoginComponent from '../components/LoginComponent';
 import BoardComponent from '../components/BoardComponent';
 import BoardCreateComponent from '../components/BoardCreateComponent.vue';
+import UserRegistrationComponent from '../components/UserRegistrationComponent.vue';
 import store from './store';
 
 function chkAuth(to, from, next) {
@@ -40,6 +41,10 @@ const routes = [
         path: '/create',
         component: BoardCreateComponent,
         beforeEnter: chkAuth,
+    },
+    {
+        path: '/regist',
+        component: UserRegistrationComponent,
     },
 ];
 

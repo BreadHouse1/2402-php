@@ -11,7 +11,7 @@
                     <div v-if="!$store.state.authFlg">
                         <!-- router-link에 있는 to를 사용해서 해당 경로로 보냄 to말고도 다른 속성들도 있음 -->
                         <router-link to="/login"><button class="btn btn-header btn-bg-black">로그인</button></router-link>
-                        <router-link to="/login"><button class="btn btn-header btn-bg-white">가입하기</button></router-link>
+                        <router-link to="/regist"><button class="btn btn-header btn-bg-white">가입하기</button></router-link>
                     </div>
                     <div v-else>
                         <button @click="$store.dispatch('logout')" class="btn btn-header btn-bg-black">로그아웃</button>

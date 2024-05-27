@@ -25,6 +25,7 @@
 <script setup>
 import { onBeforeMount, ref, reactive } from 'vue';
 import store from '../js/store';
+import router from '../js/router';
 
 // 상세 모달 처리
 const modalFlg = ref(false);
@@ -56,28 +57,31 @@ window.addEventListener('scroll', boardScrollEvent);
 let flg = true;
 
 function boardScrollEvent() {
-    if(flg && !store.state.noMoreBoardListFlg) {
-        flg = false;
-        const docHeight = document.documentElement.scrollHeight // 문서 기중 총 y축길이
-        const winHeight = window.innerHeight// 브라우저 창의 y축 길이
-        const nowHeight = window.scrollY; // 현재 스크롤 유지 
-        const viewHeight = docHeight - winHeight // 끝까지 스크롤을 했을 때의 y축 위치
-        // console.log('문서 y축' + docHeight) 
-        // console.log('윈도우 y축' + winHeight) 
-        // console.log('현재 y축' + nowHeight) 
-        // console.log('뷰 y축' + viewHeight) 
-        // console.log('----------------------------------------------') 
-        
-        // 스크롤이 최하단일 경우 처리
-        if(viewHeight <= nowHeight) {
-            store.dispatch('getAddBoardList');
+    if(router.currentRoute.value.path == '/board') {
+        if(flg && !store.state.noMoreBoardListFlg) {
+            console.log('보드 이벤트 시작')
+            flg = false;
+            const docHeight = document.documentElement.scrollHeight // 문서 기중 총 y축길이
+            const winHeight = window.innerHeight// 브라우저 창의 y축 길이
+            const nowHeight = window.scrollY; // 현재 스크롤 유지 
+            const viewHeight = docHeight - winHeight // 끝까지 스크롤을 했을 때의 y축 위치
+            // console.log('문서 y축' + docHeight) 
+            // console.log('윈도우 y축' + winHeight) 
+            // console.log('현재 y축' + nowHeight) 
+            // console.log('뷰 y축' + viewHeight) 
+            // console.log('----------------------------------------------') 
+            
+            // 스크롤이 최하단일 경우 처리
+            if(viewHeight <= nowHeight) {
+                store.dispatch('getAddBoardList');
+            }
+    
+            flg=true;
         }
-
-        flg=true;
-    }
-    // 이벤트 제거 처리
-    if(store.state.noMoreBoardListFlg) {
-        window.removeEventListener('scroll', boardScrollEvent)
+        // 이벤트 제거 처리
+        if(store.state.noMoreBoardListFlg) {
+            window.removeEventListener('scroll', boardScrollEvent)
+        }
     }
 }
 

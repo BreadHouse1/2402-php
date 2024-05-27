@@ -9,8 +9,8 @@ class MyUserValidate extends myValidate {
         'account' => ['required', 'min:5', 'max:20', 'regex:/^[a-zA-Z0-9]+$/']
         ,'password' =>  ['required', 'min:5', 'max:20', 'regex:/^[a-zA-Z0-9!@]+$/']
         // same:password를 쓰면 password와 동일한지 알아서 체크해줌
-        ,'password_chk' => ['same:password']
-        ,'name' => ['required', 'min:2', 'max:20', 'regex:/^$[가-힣]+/u']
+        ,'chkpassword' => ['same:password']
+        ,'name' => ['required', 'regex:/^[가-힣]{2,20}$/u']
         ,'gender' => ['required', 'regex: /^[0-9]{1}$/']
         ,'profile' => ['image']
     ];
