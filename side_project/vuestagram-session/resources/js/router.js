@@ -45,7 +45,7 @@ function chkAuthon(to, from, next) {
     if(!(store.state.authFlg)) {
         next();
     } else {
-        alert('로그인이 필요한 서비스입니다.');
+        alert('로그인 상태에서는 접속 할 수 없습니다.');
         next('/board');
     }
 }

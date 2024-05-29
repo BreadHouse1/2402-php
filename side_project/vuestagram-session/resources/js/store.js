@@ -20,6 +20,9 @@ const store = createStore({
         setUserInfo(state, userInfo) {
             state.userInfo= userInfo
         },
+        setUserBoardsCount(state) {
+            state.userInfo.boards_count++;
+        },
 
         // 게시글 초기 삽입
         setBoardData(state, data) {
@@ -35,6 +38,18 @@ const store = createStore({
         setMoreBoardData(state, data) {
             state.boardData = [...state.boardData, ...data]
         },
+        setUnshiftBoardList(state, data) {
+            state.boardData.unshift(data);
+        },
+
+        // 게시글 빼기
+        setUserBoardData(state, data) {
+            console.log(state.boardData)
+            state.boardData.splice(data, 1);
+        },
+        // setUserBoardsCountSub(state) {
+        //     state.userInfo.boards_count--;
+        // },
 
     },
     actions: {
@@ -134,6 +149,82 @@ const store = createStore({
                     alert('추가 게시글 습득에 실패했습니다. ( ' + error.response.data.code + ') ');
                 });
             },
+
+            /**
+             * 회원가입 처리
+             * 
+             * @param {*} context 
+             * 
+             * @return 
+             */
+            registration(context) {
+                const url = '/api/registration';
+                const data = new FormData(document.querySelector('#registrationForm'));
+
+                axios.post(url, data)
+                .then(response => {
+                    console.log(response)
+
+                    router.replace('/login')
+                })
+                .catch(error => {
+                    console.log(error.response); // TODO
+                    alert('회원가입에 실패했습니다. ( ' + error.response.data.code + ') ');
+                });
+            },
+
+            /**
+             * 글 작성 처리
+             */
+            createBoard(context) {
+                const url = '/api/createBoard';
+                const data = new FormData(document.querySelector('#boardCreateForm'));
+
+                axios.post(url, data)
+                .then(response => {
+                    console.log(response)
+
+                    if(context.state.boardData.length > 1) {
+                        // 보드리스트의 가장 앞에 작성한 글 정보 추가
+                        context.commit('setUnshiftBoardList', response.data.data);
+                        // console.log(response.data);
+                    }
+                    // 유저의 작성글 수 1 증가
+                    context.commit('setUserBoardsCount');
+                    localStorage.setItem('userInfo', JSON.stringify(context.state.userInfo));
+
+                    router.replace('/board')
+                })
+                .catch(error => {
+                    console.log(error.response); // TODO
+                    alert('글 작성에 실패했습니다. ( ' + error.response.data.code + ') ');
+                });
+            },
+
+            /**
+             * 글 삭제 처리
+             */
+            deleteBtn(state, id) {
+                const url = '/api/delete/' + id;
+
+                axios.delete(url)
+                .then(response => {
+                    console.log(response.data.data)
+                    console.log(typeof(response.data.data))
+
+                    context.commit('setUserBoardData', response.data.data)
+
+                    // 유저의 작성글 수 1 하락
+                    // context.commit('setUserBoardsCountSub');
+                    // localStorage.setItem('userInfo', JSON.stringify(context.state.userInfo));
+
+                    router.replace('/board')
+                })
+                .catch(error => {
+                    console.log(error.response); // TODO
+                    alert('글 삭제에 실패했습니다. ( ' + error.response.data.code + ') ');
+                });
+            }
         }
 });
 

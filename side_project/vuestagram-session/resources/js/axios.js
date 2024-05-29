@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const axiosInstance = axios.reate ({
-    // 기본 헤던 설정
+const axiosInstance = axios.create ({
+    // 기본 헤더 설정
     headers: {
         'X-CSRF = TOKEN': document.querySelector('meta[name="csrf-token"]').getAttrivute('content'),
     },

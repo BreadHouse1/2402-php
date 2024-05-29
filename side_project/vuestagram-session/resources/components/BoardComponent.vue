@@ -8,6 +8,7 @@
             <hr>
             <div class="etc-box">
                 <span>작성자 : {{ boardData.name }}</span>
+                <button @click="$store.dispatch('deleteBtn', boardData.id), closeDetail()" class="btn btn-close btn-bg-black">삭제</button>
                 <button @click="closeDetail()" class="btn btn-close btn-bg-black">닫기</button>
             </div>
         </div>

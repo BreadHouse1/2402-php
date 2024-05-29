@@ -25,3 +25,12 @@ Route::middleware('auth')->post('/api/logout', [UserController::class, 'logout']
 // 보드페이지
 Route::middleware('auth')->get('/api/board', [BoardController::class, 'index']);
 Route::middleware('auth')->get('/api/board/{id}', [BoardController::class, 'moreIndex']);
+
+// 회원가입 페이지
+Route::post('/api/registration', [UserController::class, 'registration']);
+
+// 글 작성 페이지
+Route::middleware('auth')->post('/api/createBoard', [BoardController::class, 'createBoard']);
+
+// 글 삭제 처리
+Route::middleware('auth')->delete('/api/delete/{id}', [BoardController::class, 'delete']);
