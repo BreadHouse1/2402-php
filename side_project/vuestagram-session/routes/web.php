@@ -34,3 +34,9 @@ Route::middleware('auth')->post('/api/createBoard', [BoardController::class, 'cr
 
 // 글 삭제 처리
 Route::middleware('auth')->delete('/api/delete/{id}', [BoardController::class, 'delete']);
+
+// 좋아요 처리
+// Route::middleware('auth')->delete('/api/like/{id}', [BoardController::class, 'like']);
+
+Route::middleware('auth')->get('/api/userboard/{id}', [BoardController::class, 'userBoard']);
+

@@ -103,4 +103,40 @@ class BoardController extends Controller
 
         return response()->json($responseData);
     }
+
+    public function userBoard($id) {
+        $boardData = Board::select('boards.*', 'users.name')
+                            ->join('users', 'users.id', '=','boards.user_id')
+                            ->orderBy('id', 'DESC')
+                            ->where('boards.user_id', '=', $id) // 로그인한 회원의 게시물만 가져오고 싶을때
+                            ->limit(20)
+                            ->get();
+
+        Log::debug($boardData);
+        $responseData = [
+            'code' => '0'
+            ,'msg' => '게시글 획득 완료'
+            ,'data' => $boardData->toArray()
+        ];
+
+        return response()->json($responseData, 200);
+    }
+
+    // public function like($id) {
+    //     $boardData = Board::select('boards.*', 'users.name')
+    //                         ->join('users', 'users.id', '=','boards.user_id')
+    //                         ->where('boards.id', $id)
+    //                         ->get();
+
+    //     $insertData = $boardData->all();
+
+        // if($insertData['like_chk'] === 0) {
+        //     $insertData['like'] += 1;
+        //     $insertData['like_chk'] = 1;
+        // } else {
+        //     $insertData['like'] -= 1;
+        //     $insertData['like_chk'] = 0;
+        // }
+
+    //}
 }

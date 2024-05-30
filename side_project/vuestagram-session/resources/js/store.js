@@ -26,7 +26,8 @@ const store = createStore({
 
         // 게시글 초기 삽입
         setBoardData(state, data) {
-            state.boardData = data
+            state.boardData = [...data]
+            console.log(state.userInfo.id);
         },
 
         // 더보기 버튼 플래그
@@ -43,13 +44,14 @@ const store = createStore({
         },
 
         // 게시글 빼기
-        setUserBoardData(state, data) {
+        setUserBoardData(state, index) {
             console.log(state.boardData)
-            state.boardData.splice(data, 1);
+            state.boardData.splice(index, 1);
+            console.log(state.boardData)
         },
-        // setUserBoardsCountSub(state) {
-        //     state.userInfo.boards_count--;
-        // },
+        setUserBoardsCountSub(state) {
+            state.userInfo.boards_count--;
+        },
 
     },
     actions: {
@@ -65,7 +67,7 @@ const store = createStore({
 
                 axios.post(url, data)
                 .then(response => {
-                    console.log(response.data); // TODO
+                    // console.log(response.data); // TODO
                     localStorage.setItem('userInfo', JSON.stringify(response.data.data));
                     context.commit('setUserInfo', response.data.data);
                     context.commit('setAuthFlg', true);
@@ -95,7 +97,7 @@ const store = createStore({
                 })
                 .finally(() => {
                     localStorage.clear();
-
+                    context.commit('setBoardData', [])
                     context.commit('setAuthFlg', false);
                     context.commit('setUserInfo', null);
 
@@ -115,7 +117,7 @@ const store = createStore({
 
                 axios.get(url)
                 .then( response => {
-                    console.log(response); // TODO
+                    // console.log(response); // TODO
                     context.commit('setBoardData', response.data.data);
                 })
                 .catch(error => {
@@ -136,7 +138,7 @@ const store = createStore({
 
                 axios.get(url)
                 .then(response => {
-                    console.log(response); // TODO
+                    // console.log(response); // TODO
                     context.commit('setMoreBoardData', response.data.data);
 
                     // 더보기 버튼 플래그 갱신
@@ -182,7 +184,7 @@ const store = createStore({
 
                 axios.post(url, data)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
 
                     if(context.state.boardData.length > 1) {
                         // 보드리스트의 가장 앞에 작성한 글 정보 추가
@@ -204,7 +206,7 @@ const store = createStore({
             /**
              * 글 삭제 처리
              */
-            deleteBtn(state, id) {
+            deleteBtn(context, id) {
                 const url = '/api/delete/' + id;
 
                 axios.delete(url)
@@ -212,11 +214,16 @@ const store = createStore({
                     console.log(response.data.data)
                     console.log(typeof(response.data.data))
 
-                    context.commit('setUserBoardData', response.data.data)
-
+                    context.state.boardData.forEach((item, key) => {
+                        if(item.id == response.data.data) {
+                            context.commit('setUserBoardData', key)
+                            return false;
+                        }
+                    });
+                    
                     // 유저의 작성글 수 1 하락
-                    // context.commit('setUserBoardsCountSub');
-                    // localStorage.setItem('userInfo', JSON.stringify(context.state.userInfo));
+                    context.commit('setUserBoardsCountSub');
+                    localStorage.setItem('userInfo', JSON.stringify(context.state.userInfo));
 
                     router.replace('/board')
                 })
@@ -224,6 +231,40 @@ const store = createStore({
                     console.log(error.response); // TODO
                     alert('글 삭제에 실패했습니다. ( ' + error.response.data.code + ') ');
                 });
+            },
+
+            /**
+             * 좋아요 처리
+             */
+            // upLike(context, id) {
+            //     const url = '/api/like/' + id;
+
+            //     axios.update(url)
+            //     .then(response => {
+                    
+            //     })
+            //     .catch()
+            // }
+
+            /**
+             * 해당 유저 게시글만 가져오기
+             */
+            async userBoardPage(context, id) {
+                const url = '/api/userboard/' + id;
+                
+                console.log('userBoardPage : ',url)
+
+                axios.get(url)
+                .then(response => {
+                    console.log(response.data)
+                    context.commit('setBoardData', response.data.data);
+                })
+                .catch();
+
+                // const res = await axios.get(url);
+                // console.log('userBoardPage : ',res.data)
+                // context.commit('setBoardData', res.data.data);
+
             }
         }
 });

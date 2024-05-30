@@ -3,12 +3,16 @@
   <div v-if="modalFlg" class="board-detail-box">
         <div class="item">
             <img :src="boardData.img">
+            <div class="etc-box">
+              <span>좋아요 : {{ boardData.like }}</span>
+              <button @click="$store.dispatch('upLike', boardData.id)">좋아요</button>
+            </div>
             <hr>
             <p>{{ boardData.content }}</p>
             <hr>
             <div class="etc-box">
                 <span>작성자 : {{ boardData.name }}</span>
-                <button @click="$store.dispatch('deleteBtn', boardData.id), closeDetail()" class="btn btn-close btn-bg-black">삭제</button>
+                <button v-if="$store.state.userInfo.id === boardData.user_id" @click="$store.dispatch('deleteBtn', boardData.id), closeDetail()" class="btn btn-close btn-bg-black">삭제</button>
                 <button @click="closeDetail()" class="btn btn-close btn-bg-black">닫기</button>
             </div>
         </div>
@@ -26,13 +30,14 @@
 <script setup>
 import { onBeforeMount, ref, reactive } from 'vue';
 import { useStore } from 'vuex';
-
+import { useRoute } from 'vue-router';
 
 const store = useStore();
+const router = useRoute();
 
 
 onBeforeMount(() => {
-  if(store.state.boardData.length < 1) {
+  if(store.state.boardData.length < 1 && router.path == '/board') {
     store.dispatch('getBoardData')
   }
 })

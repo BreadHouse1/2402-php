@@ -30,6 +30,16 @@ const routes = [
             component: RegistrationComponent,
             beforeEnter: chkAuthon,
         },
+        {
+            path: '/board/:id',
+            component: BoardComponent,
+            beforeEnter: (to, from, next) => {
+                const id = to.params.id;
+                store.dispatch('userBoardPage', id);
+                console.log('라우터 : ',id);
+                next();
+            }
+        },
 ];
 
 function chkAuth(to, from, next) {
