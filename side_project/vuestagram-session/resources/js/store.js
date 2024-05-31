@@ -7,6 +7,7 @@ const store = createStore({
             authFlg: document.cookie.indexOf('auth=') >= 0 ? true : false,
             userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null,
             boardData: [],
+            boardUpdateData: localStorage.getItem('boardInfo') ? JSON.parse(localStorage.getItem('boardInfo')) : null,
             moreBoardFlg: true,
         }
     },
@@ -52,7 +53,9 @@ const store = createStore({
         setUserBoardsCountSub(state) {
             state.userInfo.boards_count--;
         },
-
+        // setBoardUpdate(state, data) {
+        //     state.boardUpdateData = data
+        // }
     },
     actions: {
             /**
@@ -119,6 +122,7 @@ const store = createStore({
                 .then( response => {
                     // console.log(response); // TODO
                     context.commit('setBoardData', response.data.data);
+                    console.log(response.data.data)
                 })
                 .catch(error => {
                     console.log(error.response); // TODO
@@ -236,15 +240,15 @@ const store = createStore({
             /**
              * 좋아요 처리
              */
-            // upLike(context, id) {
-            //     const url = '/api/like/' + id;
+            upLike(context, id) {
+                const url = '/api/like/' + id;
 
-            //     axios.update(url)
-            //     .then(response => {
-                    
-            //     })
-            //     .catch()
-            // }
+                axios.patch(url)
+                .then(response => {
+
+                })
+                .catch()
+            },
 
             /**
              * 해당 유저 게시글만 가져오기
@@ -258,6 +262,7 @@ const store = createStore({
                 .then(response => {
                     console.log(response.data)
                     context.commit('setBoardData', response.data.data);
+                    
                 })
                 .catch();
 
@@ -265,7 +270,44 @@ const store = createStore({
                 // console.log('userBoardPage : ',res.data)
                 // context.commit('setBoardData', res.data.data);
 
-            }
+            },
+
+            /**
+             * update get 처리
+             */
+            getBoardList(context, id) {
+                const url = '/api/update/' + id;
+                // console.log(id)
+                axios.get(url)
+                .then(response => {
+                    // console.log(response.data.data)
+                    localStorage.setItem('boardInfo', JSON.stringify(response.data.data));
+                    // context.commit('setBoardUpdate', response.data.data);
+
+                    router.replace('/board/update')
+                })
+                .catch();
+            },
+
+            /**
+             * update insert 처리 
+             */
+            UpdateBoard(context) {
+                const url = '/api/update';
+                const data = new FormData(document.querySelector('#boardUpdateForm'));
+
+                axios.post(url, data)
+                .then(response => {
+
+                    console.log(response.data.data)
+
+                    router.replace('/board')
+                })
+                .catch(error => {
+                    console.log(error.response); // TODO
+                    alert('글 수정에 실패했습니다. ( ' + error.response.data.code + ') ');
+                });
+            },
         }
 });
 

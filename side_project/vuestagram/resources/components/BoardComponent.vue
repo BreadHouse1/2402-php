@@ -6,7 +6,7 @@
         </div>
     </div>
     <a href="#" class="btn btn-bg-black btn-fixed">TOP</a>
-
+    
     <!-- 상세 모달 -->
     <div v-if="modalFlg" class="board-detail-box">
         <div class="item">

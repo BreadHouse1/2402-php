@@ -15,8 +15,9 @@ class BoardController extends Controller
         // 로그인한 회원정보
         // $user = Auth::user();
 
-        $boardData = Board::select('boards.*', 'users.name')
+        $boardData = Board::select('boards.*', 'users.name', 'likes.like_chk')
                             ->join('users', 'users.id', '=','boards.user_id')
+                            ->leftJoin('likes', 'likes.board_id', '=', 'boards.id')
                             ->orderBy('id', 'DESC')
                             // ->where('boards.user_id', '=', $user->id) // 로그인한 회원의 게시물만 가져오고 싶을때
                             ->limit(20)
@@ -77,7 +78,7 @@ class BoardController extends Controller
         $insertData['user_id'] = $user->id;
 
         // 파일 저장
-        $insertData['img'] = $request->file('img')->store('img');
+        $insertData['img'] = '/'.$request->file('img')->store('img');
 
         // 인서트 처리
         $boardData = Board::create($insertData);
@@ -122,21 +123,57 @@ class BoardController extends Controller
         return response()->json($responseData, 200);
     }
 
-    // public function like($id) {
-    //     $boardData = Board::select('boards.*', 'users.name')
-    //                         ->join('users', 'users.id', '=','boards.user_id')
-    //                         ->where('boards.id', $id)
-    //                         ->get();
+    public function getBoardList($id) {
+        $boardData = Board::find($id);
 
-    //     $insertData = $boardData->all();
+        $responseData = [
+            'code' => '0'
+            ,'msg' => '게시글 획득 완료'
+            ,'data' => $boardData
+        ];
 
-        // if($insertData['like_chk'] === 0) {
-        //     $insertData['like'] += 1;
-        //     $insertData['like_chk'] = 1;
-        // } else {
-        //     $insertData['like'] -= 1;
-        //     $insertData['like_chk'] = 0;
-        // }
+        return response()->json($responseData, 200);
+    }
 
-    //}
+    public function boardUpdate(Request $request) {
+        Log::debug('수정 시작', $request->allFiles());
+        $requestData = $request->all();
+
+        // 유효성 검사
+        $validator = Validator::make(
+            $requestData
+            ,[
+                'content' => ['required', 'max:200']
+                ,'img' => ['required', 'image']
+            ]
+        );
+        Log::debug('수정 유효성 검사 끝');
+
+        // 유효성 검사 체크
+        if($validator->fails()) {
+            Log::debug('유효성 검사 실패', $validator->errors()->toArray());
+            throw new MyValidateException('E01');
+        }
+        Log::debug('수정 유효성 검사 체크 끝');
+
+        // 작성 데이터 생성
+        $boardId = $request->input('id');
+
+        $boardData = Board::find($boardId);
+        Log::debug('작성 데이터 생성 끝', $boardData->toArray());
+
+        // 파일 저장
+        $boardData->img = '/'.$request->file('img')->store('img');
+        $boardData->content = $request->input('content');
+        // 인서트 처리
+        $boardData->save();
+
+        $responseData = [
+            'code' => '0'
+            ,'msg' => '글 작성 완료'
+            ,'data' => $boardData
+        ];
+
+        return response()->json($responseData, 200);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,13 @@ Route::middleware('auth')->post('/api/createBoard', [BoardController::class, 'cr
 Route::middleware('auth')->delete('/api/delete/{id}', [BoardController::class, 'delete']);
 
 // 좋아요 처리
-// Route::middleware('auth')->delete('/api/like/{id}', [BoardController::class, 'like']);
+Route::middleware('auth')->patch('/api/like/{id}', [LikeController::class, 'like']);
 
+// 해당 유저의 게시글만 찾기
 Route::middleware('auth')->get('/api/userboard/{id}', [BoardController::class, 'userBoard']);
 
+// 이전 게시글 정보 찾기
+Route::middleware('auth')->get('/api/update/{id}', [BoardController::class, 'getBoardList']);
+
+// 게시글 수정 처리
+Route::middleware('auth')->post('/api/update', [BoardController::class, 'boardUpdate']);

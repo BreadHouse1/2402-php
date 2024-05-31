@@ -3,6 +3,7 @@ import LoginComponent from '../components/LoginComponent.vue';
 import BoardComponent from '../components/BoardComponent.vue';
 import BoardCreateComponent from '../components/BoardCreateComponent.vue';
 import RegistrationComponent from '../components/RegistrationComponent.vue';
+import BoardUpdateComponent from '../components/BoardUpdateComponent.vue';
 import store from './store';
 
 const routes = [
@@ -26,6 +27,11 @@ const routes = [
             beforeEnter: chkAuth,
         },
         {
+            path: '/board/update',
+            component: BoardUpdateComponent,
+            beforeEnter: chkAuth,
+        },
+        {
             path: '/registration',
             component: RegistrationComponent,
             beforeEnter: chkAuthon,
@@ -33,12 +39,8 @@ const routes = [
         {
             path: '/board/:id',
             component: BoardComponent,
-            beforeEnter: (to, from, next) => {
-                const id = to.params.id;
-                store.dispatch('userBoardPage', id);
-                console.log('라우터 : ',id);
-                next();
-            }
+            beforeEnter: userBoardChk
+
         },
 ];
 
@@ -64,5 +66,17 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
+function userBoardChk(to, from, next) {
+    if(store.state.authFlg) {
+        const id = to.params.id;
+        store.dispatch('userBoardPage', id);
+        console.log('라우터 : ',id);
+        next();
+    } else {
+        alert('로그인이 필요한 서비스입니다.');
+        next('/login');
+    }
+}
 
 export default router;

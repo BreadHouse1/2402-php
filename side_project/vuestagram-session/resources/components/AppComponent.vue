@@ -28,7 +28,7 @@
   <!-- Main -->
   <main>
     <UserInfoComponent v-if="$store.state.authFlg"/>
-    <div class="container">
+    <div class="container"> 
       <router-view></router-view>
     </div>
   </main>
@@ -44,6 +44,7 @@ import { useRoute } from 'vue-router';
 import UserInfoComponent from './UserInfoComponent.vue';
 
 const router = useRoute()
+
 </script>
 
 <style>
